@@ -290,7 +290,7 @@ export default function Home() {
       </section>
 
       {/* ── LEADERSHIP (Team) ── */}
-      <section id="leadership" className="py-32 px-6 bg-white text-gray-900">
+      {/* <section id="leadership" className="py-32 px-6 bg-white text-gray-900">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-20">
             <span className="text-accent font-bold tracking-widest uppercase text-xs mb-4 block">Our People</span>
@@ -332,7 +332,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-      </section>
+      </section> */}
 
 
       {/* ── CONTACT ── */}
