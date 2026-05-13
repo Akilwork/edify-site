@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import { LogoCloud } from "@/components/ui/logo-cloud-2";
-import { ScrollRevealText } from "@/components/ui/scroll-reveal-text";
 
 export const metadata: Metadata = {
   title: "EDIFY Management Consultancy LLP",
@@ -93,16 +91,16 @@ const services = [
 ];
 
 const network = [
-  { src: "/assets/companies/1.png", alt: "NIMS Group" },
-  { src: "/assets/companies/2.png", alt: "Golden Cosmos" },
-  { src: "/assets/companies/3.png", alt: "Techno Alliance" },
-  { src: "/assets/companies/4.png", alt: "SEED" },
-  { src: "/assets/companies/5.png", alt: "TOSS Academy" },
-  { src: "/assets/companies/7.png", alt: "EMKE Garage" },
-  { src: "/assets/companies/8.png", alt: "Imprint" },
-  { src: "/assets/companies/9.png", alt: "UniDesign" },
-  { src: "/assets/companies/10.png", alt: "EduCraft" },
-  { src: "/assets/companies/image 711.png", alt: "Loyaltri" },
+  "NIMS Schools",
+  "Golden Cosmos",
+  "Techno Alliance",
+  "SEED",
+  "TOSS Academy",
+  "EMKE Garage",
+  "Imprint",
+  "UniDesign",
+  "Educraft",
+  "Loyaltri",
 ];
 
 const stats = [
@@ -169,17 +167,19 @@ export default function Home() {
       </section>
 
       {/* ── ABOUT ── */}
-      <section id="about" className="py-24 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <span className="inline-block text-accent text-sm font-semibold tracking-widest uppercase mb-6">
-            About Us
-          </span>
-          <ScrollRevealText
-            text="Edify is built on the belief that institutions grow stronger when supported by the right systems, people, and infrastructure. From education management to operational services, we work at the intersection of strategy and execution—helping organizations scale sustainably in an evolving landscape. Our journey reflects the growth of the UAE itself—dynamic, ambitious, and constantly moving forward."
-            className="text-gray-900"
-            leadWords={0}
-          />
-        </div>
+      <section id="about" className="py-20 px-6 max-w-6xl mx-auto text-center">
+        <span className="inline-block text-accent text-sm font-semibold tracking-widest uppercase mb-3">
+          Who We Are
+        </span>
+        <h2 className="text-3xl md:text-4xl font-bold mb-6">
+          A Partner Built for Institutional Excellence
+        </h2>
+        <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          EDIFY Management Consultancy LLP is a forward-thinking organization delivering
+          consultancy and support services across education, HR, and business operations.
+          With strong roots in the UAE, we combine innovation and expertise to drive
+          sustainable growth for every institution we serve.
+        </p>
       </section>
 
       {/* ── SERVICES ── */}
@@ -232,16 +232,25 @@ export default function Home() {
       </section>
 
       {/* ── NETWORK ── */}
-      <section id="network" className="py-20 px-6 bg-gray-950">
+      <section id="network" className="py-20 px-6">
         <div className="max-w-5xl mx-auto text-center">
           <span className="inline-block text-accent text-sm font-semibold tracking-widest uppercase mb-3">
             Ecosystem
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Our Network</h2>
-          <p className="mb-10 text-gray-400 max-w-xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Network</h2>
+          <p className="mb-10 text-gray-600 max-w-xl mx-auto">
             Supported by a strong ecosystem of institutions and partner organizations across the UAE.
           </p>
-          <LogoCloud logos={network} />
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+            {network.map((item) => (
+              <div
+                key={item}
+                className="border border-gray-200 bg-white px-3 py-4 rounded-xl text-sm font-medium text-gray-700 hover:border-primary/40 hover:text-primary hover:shadow-sm transition-all duration-200 cursor-pointer"
+              >
+                {item}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
