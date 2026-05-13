@@ -4,7 +4,7 @@ import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
-export const Globe = ({ scrollProgress }: { scrollProgress: number }) => {
+export const Globe = () => {
   const globeRef = useRef<THREE.Group>(null);
   const meshRef = useRef<THREE.Mesh>(null);
 

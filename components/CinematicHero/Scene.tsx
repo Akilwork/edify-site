@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { PerspectiveCamera, Stars, Float, ContactShadows, Environment } from "@react-three/drei";
+import { PerspectiveCamera, Stars, Float, Environment } from "@react-three/drei";
 import { Globe } from "./Globe";
 import { EcosystemCards } from "./EcosystemCards";
 import { Suspense, useRef, useEffect } from "react";
@@ -27,9 +27,9 @@ const SceneManager = ({ scrollProgress }: { scrollProgress: number }) => {
     // Parallax mouse movement
     const targetX = state.mouse.x * 2;
     const targetY = state.mouse.y * 2;
-    camera.position.x += (targetX - camera.position.x) * 0.05;
-    camera.position.y += (targetY - camera.position.y) * 0.05;
-    camera.lookAt(0, -0.5, 0);
+    state.camera.position.x += (targetX - state.camera.position.x) * 0.05;
+    state.camera.position.y += (targetY - state.camera.position.y) * 0.05;
+    state.camera.lookAt(0, -0.5, 0);
 
     if (lightRef.current) {
       lightRef.current.position.x = Math.sin(state.clock.elapsedTime) * 5;
@@ -54,7 +54,7 @@ const SceneManager = ({ scrollProgress }: { scrollProgress: number }) => {
 
       {/* Elements */}
       <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.5}>
-        <Globe scrollProgress={scrollProgress} />
+        <Globe />
       </Float>
       
       <EcosystemCards scrollProgress={scrollProgress} />

@@ -1,15 +1,18 @@
-import { Sparkles, Building, GraduationCap, Globe, Cpu, Zap, Activity, Layout } from 'lucide-react';
+import { LucideIcon, Sparkles, Building, Globe, Cpu, Zap, Activity, Layout } from 'lucide-react';
 
 export interface StorytellingStep {
-  leftImage: string;
-  rightImage: string;
+  bgImage?: string;
+  leftImage?: string;
+  rightImage?: string;
   year?: string;
   title: string;
-  text: string;
+  text?: string;
   subtext?: string;
-  leftLabel: string;
-  rightLabel: string;
-  icon: any;
+  leftLabel?: string;
+  rightLabel?: string;
+  leftText?: string;
+  rightText?: string;
+  icon: LucideIcon;
   overlayType?: 'grain' | 'grid' | 'nodes' | 'none';
 }
 
@@ -72,7 +75,7 @@ export const uaeNimsEvolutionSteps: StorytellingStep[] = [
   }
 ];
 
-export const techInfraSteps: any[] = [
+export const techInfraSteps: StorytellingStep[] = [
   {
     bgImage: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2000&auto=format&fit=crop',
     title: "Software & Digital Systems",

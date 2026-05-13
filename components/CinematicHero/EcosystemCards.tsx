@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useMemo } from "react";
+import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import * as THREE from "three";
@@ -18,25 +18,23 @@ const cardData = [
   { name: "Unidezine", category: "Design" },
 ];
 
+const cardPositions = cardData.map((_, i) => {
+  const angle = (i / cardData.length) * Math.PI * 2;
+  const radius = 5 + Math.random() * 2;
+  const y = (Math.random() - 0.5) * 4;
+  return {
+    initialPos: new THREE.Vector3(
+      Math.cos(angle) * radius,
+      y,
+      Math.sin(angle) * radius
+    ),
+    angle,
+    radius,
+  };
+});
+
 export const EcosystemCards = ({ scrollProgress }: { scrollProgress: number }) => {
   const groupRef = useRef<THREE.Group>(null);
-
-  const cardPositions = useMemo(() => {
-    return cardData.map((_, i) => {
-      const angle = (i / cardData.length) * Math.PI * 2;
-      const radius = 5 + Math.random() * 2;
-      const y = (Math.random() - 0.5) * 4;
-      return {
-        initialPos: new THREE.Vector3(
-          Math.cos(angle) * radius,
-          y,
-          Math.sin(angle) * radius
-        ),
-        angle,
-        radius,
-      };
-    });
-  }, []);
 
   useFrame((state) => {
     if (groupRef.current) {

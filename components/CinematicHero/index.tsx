@@ -1,8 +1,8 @@
 "use client";
 
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { useRef } from "react";
-import { ArrowRight, ChevronDown, Sparkles } from "lucide-react";
+import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from "framer-motion";
+import { useRef, useState } from "react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { Scene } from "./Scene";
 import { Navbar } from "../Navbar";
 
@@ -24,6 +24,12 @@ export const CinematicHero = () => {
   const headingScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.9]);
   const subheadingOpacity = useTransform(scrollYProgress, [0.05, 0.25], [1, 0]);
   
+  const [scrollVal, setScrollVal] = useState(0);
+  
+  useMotionValueEvent(smoothScrollProgress, "change", (latest) => {
+    setScrollVal(latest);
+  });
+
   return (
     <div ref={containerRef} className="relative h-[400vh] bg-[#050510]">
       {/* ── NAVBAR ── */}
@@ -31,7 +37,7 @@ export const CinematicHero = () => {
 
       {/* ── THREE.JS BACKGROUND ── */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        <Scene scrollProgress={scrollYProgress.get()} />
+        <Scene scrollProgress={scrollVal} />
         
         {/* Cinematic Overlays */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#050510] via-transparent to-[#050510] pointer-events-none z-[5]" />

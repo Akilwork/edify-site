@@ -1,11 +1,10 @@
 "use client";
 
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { 
   servicePillars, 
   ecosystem, 
-  stats, 
   leadership, 
   contactItems 
 } from "@/constants";
@@ -329,7 +328,7 @@ export default function Home() {
             <div className="absolute top-0 left-0 w-32 h-32 bg-accent opacity-10 blur-[80px]" />
             <div className="absolute bottom-0 right-0 w-32 h-32 bg-accent opacity-10 blur-[80px]" />
             <p className="text-xl md:text-2xl font-medium leading-relaxed max-w-4xl mx-auto relative z-10">
-              "With decades of combined experience, our leadership team has played a pivotal role in building and scaling institutions across the UAE—driving both operational excellence and long-term impact."
+              &quot;With decades of combined experience, our leadership team has played a pivotal role in building and scaling institutions across the UAE—driving both operational excellence and long-term impact.&quot;
             </p>
           </div>
         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { aboutTags } from "@/constants";
 import { ScrollRevealText } from "./scroll-reveal-text";
@@ -14,44 +14,7 @@ function useReveal(rootMargin = "-80px") {
   return { ref, inView };
 }
 
-/* ─── Animated counter ─── */
-function AnimatedNumber({ value }: { value: string }) {
-  const { ref, inView } = useReveal("-40px");
-  const num = parseInt(value.replace(/\D/g, ""));
-  const suffix = value.replace(/[0-9]/g, "");
-  const count = useRef(0);
-  const [display, setDisplay] = useState("0");
 
-  // Trigger count when in view
-  const startCount = () => {
-    if (count.current !== 0) return;
-    count.current = 1;
-    const duration = 1800;
-    const start = performance.now();
-    const animate = (now: number) => {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setDisplay(Math.round(eased * num).toString());
-      if (progress < 1) requestAnimationFrame(animate);
-    };
-    requestAnimationFrame(animate);
-  };
-
-  return (
-    <span ref={ref} onLoad={inView ? startCount : undefined}>
-      {inView ? (
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          onAnimationComplete={startCount}
-        >
-          {display}{suffix}
-        </motion.span>
-      ) : "0"}
-    </span>
-  );
-}
 
 /* ─── Pillar card ─── */
 function PillarCard({
@@ -95,37 +58,6 @@ function PillarCard({
   );
 }
 
-/* ─── Stat card ─── */
-function StatCard({
-  value,
-  label,
-  delay,
-}: {
-  value: string;
-  label: string;
-  delay: number;
-}) {
-  const { ref, inView } = useReveal("-20px");
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay }}
-      className="p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:border-accent/30 hover:bg-white/[0.05] transition-all duration-500 relative overflow-hidden group flex flex-col justify-center items-center text-center"
-    >
-      <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-      
-      <p className="text-4xl md:text-5xl font-black font-syne mb-3 text-white relative z-10 group-hover:text-accent transition-colors duration-500">
-        <AnimatedNumber value={value} />
-      </p>
-      <p className="text-white/50 font-bold uppercase tracking-widest text-[10px] relative z-10">
-        {label}
-      </p>
-    </motion.div>
-  );
-}
 
 /* ─── Image frame with parallax ─── */
 function ImageFrame({
@@ -186,12 +118,6 @@ export function AboutSection() {
     },
   ];
 
-  const stats = [
-    { value: "15+", label: "Institutions Managed" },
-    { value: "50k+", label: "People Impacted" },
-    { value: "45+", label: "Active Projects" },
-    { value: "10+", label: "Years in UAE" },
-  ];
 
   return (
     <section

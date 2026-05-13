@@ -1,9 +1,10 @@
 "use client";
-import React, { useRef, useMemo } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, AnimatePresence } from 'framer-motion';
+import { StorytellingStep } from '@/constants/storytelling';
 
 interface ScrollAdventureProps {
-  steps?: any[];
+  steps?: StorytellingStep[];
   id?: string;
 }
 
@@ -57,8 +58,6 @@ export default function ScrollAdventure({ steps = [], id }: ScrollAdventureProps
           
           // Animation Logic using progress relative to this specific slide
           // Each slide's range: [i/N, (i+1)/N]
-          const start = i / numOfPages;
-          const end = (i + 1) / numOfPages;
           
           return (
             <AnimatePresence key={idx}>
@@ -97,7 +96,7 @@ export default function ScrollAdventure({ steps = [], id }: ScrollAdventureProps
                           </h2>
                           {page.leftText && (
                              <p className="text-lg text-white/50 font-light italic leading-relaxed">
-                              "{page.leftText}"
+                               &quot;{page.leftText}&quot;
                              </p>
                           )}
                         </motion.div>
@@ -141,7 +140,7 @@ export default function ScrollAdventure({ steps = [], id }: ScrollAdventureProps
                           </h2>
                           {page.rightText ? (
                              <p className="text-lg text-white/50 font-light italic leading-relaxed">
-                              "{page.rightText}"
+                               &quot;{page.rightText}&quot;
                              </p>
                           ) : (
                             <div className="space-y-4">

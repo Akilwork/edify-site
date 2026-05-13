@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function LogoCloud() {
     const localLogos = [
         { src: "/assets/companies/1.png", alt: "NIMS Group", invert: true },
@@ -25,12 +27,15 @@ export default function LogoCloud() {
                 {/* Local Ecosystem Logos */}
                 <div className="mx-auto flex flex-wrap items-center justify-center gap-x-12 gap-y-10 md:gap-x-16">
                     {localLogos.map((logo, index) => (
-                        <img 
-                            key={index}
-                            className={`h-12 md:h-16 w-auto opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer object-contain ${logo.invert ? 'brightness-0' : ''}`} 
-                            src={logo.src} 
-                            alt={logo.alt} 
-                        />
+                        <div key={index} className="relative h-12 md:h-16 w-32 md:w-40">
+                            <Image 
+                                className={`opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer object-contain ${logo.invert ? 'brightness-0' : ''}`} 
+                                src={logo.src} 
+                                alt={logo.alt}
+                                fill
+                                sizes="(max-width: 768px) 128px, 160px"
+                            />
+                        </div>
                     ))}
                 </div>
             </div>

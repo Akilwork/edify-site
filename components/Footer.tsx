@@ -2,12 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { 
-  ArrowUpRight,
-  Mail,
-  MapPin,
-  Phone
-} from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 const Footer = () => {
   return (
