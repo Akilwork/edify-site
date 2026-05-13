@@ -22,6 +22,9 @@ import TechInfrastructureSection from "@/components/TechInfrastructureSection";
 import Footer from "@/components/Footer";
 import { HeroSection } from "@/components/HeroSection";
 import { ImpactCounters } from "@/components/ImpactCounters";
+import ScrollAdventure from "@/components/ui/animated-scroll";
+import { uaeNimsEvolutionSteps } from "@/constants/storytelling";
+import LogoCloud from "@/components/ui/logo-cloud";
 
 
 
@@ -35,8 +38,11 @@ export default function Home() {
       {/* ── LIVE IMPACT COUNTERS ── */}
       <ImpactCounters />
 
+      {/* ── UAE vs NIMS EVOLUTION ── */}
+      <ScrollAdventure steps={uaeNimsEvolutionSteps} id="evolution-story" />
 
-
+      {/* ── ECOSYSTEM BRANDS (Partners) ── */}
+      <LogoCloud />
 
       {/* ── ABOUT EDIFY ── */}
       <AboutSection />

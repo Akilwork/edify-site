@@ -21,7 +21,7 @@ interface ScrollRevealTextProps {
  */
 export function ScrollRevealText({
   text,
-  className = "",
+  className = "text-2xl md:text-3xl lg:text-4xl font-bold leading-snug text-center",
   leadWords = 0,
 }: ScrollRevealTextProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -36,8 +36,8 @@ export function ScrollRevealText({
   const words = text.split(" ");
 
   return (
-    <div ref={containerRef} className={className}>
-      <p className="text-2xl md:text-3xl lg:text-4xl font-bold leading-snug text-center">
+    <div ref={containerRef}>
+      <p className={className}>
         {words.map((word, i) => {
           // Each word animates when scrollYProgress crosses its threshold
           const start = leadWords > 0 && i < leadWords ? 0 : i / words.length;

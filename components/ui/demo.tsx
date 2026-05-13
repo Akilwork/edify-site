@@ -1,11 +1,6 @@
-import ScrollAdventure from "@/components/ui/animated-scroll";
+import LogoCloud from "@/components/ui/logo-cloud";
 
-const DemoOne = () => {
-  return (
-    <div className="w-full h-screen">
-      <ScrollAdventure />
-    </div>
-  );
-};
 
-export { DemoOne };
+export default function DemoOne() {
+  return <LogoCloud />;
+}

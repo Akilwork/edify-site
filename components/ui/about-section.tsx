@@ -1,8 +1,10 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { aboutTags } from "@/constants";
+import { ScrollRevealText } from "./scroll-reveal-text";
+import { ArrowRight } from "lucide-react";
 
 /* ─── Scroll-driven reveal hook ─── */
 function useReveal(rootMargin = "-80px") {
@@ -51,7 +53,7 @@ function AnimatedNumber({ value }: { value: string }) {
   );
 }
 
-/* ─── Pillar card with hover reveal ─── */
+/* ─── Pillar card ─── */
 function PillarCard({
   index,
   title,
@@ -64,59 +66,28 @@ function PillarCard({
   delay: number;
 }) {
   const { ref, inView } = useReveal("-40px");
-  const [hovered, setHovered] = useState(false);
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, x: -30 }}
-      animate={inView ? { opacity: 1, x: 0 } : {}}
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="relative group cursor-default"
+      className="p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:border-accent/40 hover:bg-white/[0.05] transition-all duration-500 relative overflow-hidden group cursor-default h-full flex flex-col justify-between"
     >
-      {/* Left glow border */}
-      <motion.div
-        className="absolute left-0 top-0 w-[2px] h-full rounded-full origin-bottom"
-        style={{ background: "linear-gradient(to top, #C8A96A, transparent)" }}
-        animate={{ scaleY: hovered ? 1 : 0.3, opacity: hovered ? 1 : 0.3 }}
-        transition={{ duration: 0.4 }}
-      />
+      <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-accent/10 transition-colors" />
 
-      <div className="pl-8 pr-4 py-6 rounded-r-2xl transition-all duration-500"
-        style={{
-          background: hovered
-            ? "linear-gradient(90deg, rgba(200,169,106,0.06) 0%, transparent 100%)"
-            : "transparent",
-        }}
-      >
-        {/* Index */}
-        <div className="flex items-center gap-4 mb-3">
-          <span
-            className="text-[10px] font-black tracking-[0.2em] tabular-nums"
-            style={{ color: "#C8A96A" }}
-          >
-            {String(index).padStart(2, "0")}
+      <div>
+        <div className="flex items-center gap-4 mb-6">
+          <span className="text-white/20 font-black text-4xl tracking-tighter group-hover:text-accent/40 transition-colors duration-500">
+            0{index}
           </span>
-          <div
-            className="flex-1 h-px transition-all duration-500"
-            style={{
-              background: hovered
-                ? "linear-gradient(90deg, rgba(200,169,106,0.4), transparent)"
-                : "rgba(255,255,255,0.05)",
-            }}
-          />
         </div>
 
-        <h4 className="text-base font-bold font-syne mb-2 transition-colors duration-300"
-          style={{ color: hovered ? "#C8A96A" : "#e8e8f0" }}
-        >
+        <h4 className="text-xl font-bold mb-3 group-hover:text-accent transition-colors duration-500 text-white">
           {title}
         </h4>
-        <p className="text-sm leading-relaxed transition-colors duration-300"
-          style={{ color: hovered ? "rgba(255,255,255,0.65)" : "rgba(255,255,255,0.35)" }}
-        >
+        <p className="text-white/50 leading-relaxed text-sm">
           {body}
         </p>
       </div>
@@ -142,33 +113,14 @@ function StatCard({
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay }}
-      className="relative p-6 rounded-2xl overflow-hidden group cursor-default"
-      style={{
-        background: "rgba(255,255,255,0.03)",
-        border: "1px solid rgba(255,255,255,0.06)",
-      }}
-      whileHover={{
-        borderColor: "rgba(200,169,106,0.3)",
-        background: "rgba(200,169,106,0.04)",
-      }}
+      className="p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:border-accent/30 hover:bg-white/[0.05] transition-all duration-500 relative overflow-hidden group flex flex-col justify-center items-center text-center"
     >
-      {/* Corner accent */}
-      <div
-        className="absolute top-0 right-0 w-16 h-16 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{
-          background: "radial-gradient(circle at top right, rgba(200,169,106,0.2), transparent 70%)",
-        }}
-      />
-      <p
-        className="text-3xl md:text-4xl font-black font-syne leading-none mb-2"
-        style={{ color: "#C8A96A" }}
-      >
+      <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+      
+      <p className="text-4xl md:text-5xl font-black font-syne mb-3 text-white relative z-10 group-hover:text-accent transition-colors duration-500">
         <AnimatedNumber value={value} />
       </p>
-      <p
-        className="text-[11px] font-bold tracking-widest uppercase"
-        style={{ color: "rgba(255,255,255,0.35)" }}
-      >
+      <p className="text-white/50 font-bold uppercase tracking-widest text-[10px] relative z-10">
         {label}
       </p>
     </motion.div>
@@ -197,9 +149,9 @@ function ImageFrame({
   return (
     <motion.div
       ref={ref}
-      className={`overflow-hidden rounded-3xl ${className ?? ""}`}
-      style={{ border: "1px solid rgba(200,169,106,0.1)" }}
-      initial={{ opacity: 0, scale: 0.94 }}
+      className={`overflow-hidden rounded-[2.5rem] relative group ${className ?? ""}`}
+      style={{ border: "1px solid rgba(255,255,255,0.05)" }}
+      initial={{ opacity: 0, scale: 0.95 }}
       animate={inView ? { opacity: 1, scale: 1 } : {}}
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay }}
     >
@@ -207,15 +159,10 @@ function ImageFrame({
         src={src}
         alt={alt}
         style={{ y }}
-        className="w-full h-full object-cover scale-110"
+        className="w-full h-full object-cover scale-110 group-hover:scale-125 transition-transform duration-[1.5s] ease-out"
       />
       {/* Overlay gradient */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: "linear-gradient(to top, rgba(5,5,16,0.5) 0%, transparent 50%)",
-        }}
-      />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a1a]/80 via-transparent to-transparent pointer-events-none" />
     </motion.div>
   );
 }
@@ -223,13 +170,6 @@ function ImageFrame({
 /* ─── Main About Section ─── */
 export function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const lineProgress = useTransform(scrollYProgress, [0.05, 0.4], [0, 1]);
 
   const pillars = [
     {
@@ -257,221 +197,55 @@ export function AboutSection() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative overflow-hidden"
-      style={{ background: "linear-gradient(180deg, #06060f 0%, #050510 50%, #06060f 100%)" }}
+      className="py-40 px-6 bg-[#0a0a1a] relative overflow-hidden"
     >
-      {/* ── Animated mesh background ── */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        {/* Grid lines */}
-        <div
-          className="absolute inset-0 opacity-[0.025]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(200,169,106,1) 1px, transparent 1px), linear-gradient(90deg, rgba(200,169,106,1) 1px, transparent 1px)",
-            backgroundSize: "80px 80px",
-          }}
-        />
-        {/* Radial glows */}
-        <motion.div
-          className="absolute top-1/3 -right-40 w-[700px] h-[700px] rounded-full"
-          style={{
-            background: "radial-gradient(circle, rgba(200,169,106,0.06) 0%, transparent 65%)",
-            y: bgY,
-          }}
-        />
-        <div
-          className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full"
-          style={{
-            background: "radial-gradient(circle, rgba(14,165,233,0.04) 0%, transparent 65%)",
-          }}
-        />
-        {/* Corner lines */}
-        <div
-          className="absolute top-20 left-20 w-32 h-32 pointer-events-none"
-          style={{
-            borderTop: "1px solid rgba(200,169,106,0.15)",
-            borderLeft: "1px solid rgba(200,169,106,0.15)",
-            borderRadius: "4px 0 0 0",
-          }}
-        />
-        <div
-          className="absolute bottom-20 right-20 w-32 h-32 pointer-events-none"
-          style={{
-            borderBottom: "1px solid rgba(200,169,106,0.15)",
-            borderRight: "1px solid rgba(200,169,106,0.15)",
-            borderRadius: "0 0 4px 0",
-          }}
-        />
-      </div>
+      {/* ── Decorative background elements ── */}
+      <div className="absolute top-1/4 -right-20 w-96 h-96 bg-accent/5 rounded-full blur-[120px]" aria-hidden="true" />
+      <div className="absolute bottom-1/4 -left-20 w-96 h-96 bg-primary/10 rounded-full blur-[120px]" aria-hidden="true" />
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-12 py-32 lg:py-40">
+      <div className="relative max-w-7xl mx-auto z-10">
 
         {/* ══ SECTION HEADER ══ */}
-        <div className="flex items-center gap-6 mb-24">
-          <motion.span
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 text-[10px] font-bold tracking-[0.35em] uppercase px-5 py-2.5 rounded-full"
-            style={{
-              background: "rgba(200,169,106,0.08)",
-              color: "#C8A96A",
-              border: "1px solid rgba(200,169,106,0.2)",
-            }}
-          >
-            <span
-              className="w-1.5 h-1.5 rounded-full animate-pulse"
-              style={{ background: "#C8A96A" }}
-            />
-            Who We Are
-          </motion.span>
-
-          {/* Animated progress line */}
-          <div className="flex-1 overflow-hidden h-px" style={{ background: "rgba(255,255,255,0.05)" }}>
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-8">
+          <div className="max-w-3xl">
             <motion.div
-              className="h-full origin-left"
-              style={{
-                scaleX: lineProgress,
-                background: "linear-gradient(90deg, #C8A96A, rgba(200,169,106,0.2))",
-              }}
-            />
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="flex items-center gap-3 mb-6"
+            >
+              <div className="w-10 h-[1px] bg-accent" />
+              <span className="text-accent font-bold tracking-[0.4em] uppercase text-xs">Who We Are</span>
+            </motion.div>
+
+            <div className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 text-white">
+              <ScrollRevealText
+                text="Empowering Institutions for the Next Generation."
+                className="font-bold font-syne leading-[1.1] tracking-tight"
+              />
+            </div>
           </div>
 
-          <motion.span
+          <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-[10px] font-bold tracking-widest uppercase"
-            style={{ color: "rgba(255,255,255,0.2)" }}
+            transition={{ delay: 0.2 }}
+            className="flex items-center gap-4 text-white/40 text-sm font-bold tracking-widest uppercase mb-4 md:mb-8"
           >
-            Est. 2014 · Dubai, UAE
-          </motion.span>
+            Est. 2014 <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" /> Dubai, UAE
+          </motion.div>
         </div>
 
         {/* ══ MAIN GRID ══ */}
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
 
-          {/* ── LEFT: Image composition ── */}
-          <div className="relative order-2 lg:order-1 lg:sticky lg:top-32">
-            {/* Primary image */}
-            <div className="relative">
-              <ImageFrame
-                src="/Images/ezgif-frame-12.jpg"
-                alt="Seed UAE 2021 - Modern Innovation"
-                delay={0.1}
-                yRange={["-6%", "6%"]}
-                className="relative h-[420px] lg:h-[540px] w-full shadow-2xl"
-              />
-
-              {/* Floating tag — top left */}
-              <motion.div
-                className="absolute -top-5 -left-5 px-5 py-3 rounded-xl backdrop-blur-md z-10"
-                style={{
-                  background: "rgba(5,5,16,0.85)",
-                  border: "1px solid rgba(200,169,106,0.25)",
-                  boxShadow: "0 20px 60px rgba(0,0,0,0.4)",
-                }}
-                initial={{ opacity: 0, scale: 0.8, y: 10 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: 0.4 }}
-              >
-                <p className="text-2xl font-black font-syne leading-none mb-0.5" style={{ color: "#C8A96A" }}>
-                  15+
-                </p>
-                <p className="text-[9px] font-bold tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.4)" }}>
-                  Institutions
-                </p>
-              </motion.div>
-
-              {/* Scan line animation */}
-              <motion.div
-                className="absolute inset-0 pointer-events-none rounded-3xl overflow-hidden"
-                aria-hidden
-              >
-                <motion.div
-                  className="absolute left-0 right-0 h-[1px]"
-                  style={{ background: "linear-gradient(90deg, transparent, rgba(200,169,106,0.6), transparent)" }}
-                  animate={{ top: ["0%", "100%"] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "linear", repeatDelay: 2 }}
-                />
-              </motion.div>
-            </div>
-
-            {/* Secondary image — offset bottom right */}
-            <div className="absolute -bottom-12 -right-6 w-[48%] hidden md:block z-10">
-              <div className="relative overflow-hidden rounded-2xl shadow-2xl"
-                style={{
-                  border: "4px solid rgba(5,5,16,0.9)",
-                  outline: "1px solid rgba(200,169,106,0.15)",
-                }}
-              >
-                <ImageFrame
-                  src="/Images/ezgif-frame-2.jpg"
-                  alt="NIMS Dubai 1980 - Heritage Roots"
-                  delay={0.25}
-                  yRange={["8%", "-8%"]}
-                  className="h-[200px] w-full"
-                />
-              </div>
-              {/* Badge on secondary image */}
-              <motion.div
-                className="absolute bottom-4 left-4 px-4 py-3 rounded-xl backdrop-blur-md"
-                style={{
-                  background: "rgba(5,5,16,0.9)",
-                  border: "1px solid rgba(200,169,106,0.2)",
-                }}
-                initial={{ opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-              >
-                <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <p className="text-[9px] font-bold tracking-widest uppercase" style={{ color: "rgba(255,255,255,0.5)" }}>
-                    50k+ Lives Impacted
-                  </p>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-
-          {/* ── RIGHT: Content ── */}
-          <div className="flex flex-col order-1 lg:order-2 lg:pt-4">
-
-            {/* Headline */}
-            <motion.h2
-              className="font-bold font-syne leading-[1.05] tracking-tight mb-8"
-              style={{
-                fontSize: "clamp(2.4rem, 4.5vw, 3.8rem)",
-                color: "#e8e8f0",
-              }}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            >
-              Empowering{" "}
-              <span
-                className="italic font-serif"
-                style={{
-                  background: "linear-gradient(135deg, #C8A96A 0%, #e8c97a 50%, #C8A96A 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
-                Institutions
-              </span>{" "}
-              for the Next Generation.
-            </motion.h2>
-
+          {/* ── LEFT: Content ── */}
+          <div className="flex flex-col order-2 lg:order-1 lg:pt-4">
+            
             {/* Body */}
             <motion.p
-              className="text-base lg:text-lg leading-relaxed mb-14"
-              style={{ color: "rgba(255,255,255,0.45)" }}
+              className="text-white/60 text-lg md:text-xl leading-relaxed mb-14 font-light"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -483,21 +257,22 @@ export function AboutSection() {
             </motion.p>
 
             {/* Pillars */}
-            <div className="space-y-1 mb-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
               {pillars.map((p, i) => (
-                <PillarCard
-                  key={i}
-                  index={i + 1}
-                  title={p.title}
-                  body={p.body}
-                  delay={0.15 + i * 0.08}
-                />
+                <div key={i} className={i === 2 ? "sm:col-span-2" : ""}>
+                  <PillarCard
+                    index={i + 1}
+                    title={p.title}
+                    body={p.body}
+                    delay={0.15 + i * 0.08}
+                  />
+                </div>
               ))}
             </div>
 
             {/* Tags */}
             <motion.div
-              className="flex flex-wrap gap-2 mb-12"
+              className="flex flex-wrap gap-3 mb-14"
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -506,93 +281,88 @@ export function AboutSection() {
               {aboutTags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-lg cursor-default transition-all duration-300"
-                  style={{
-                    background: "rgba(255,255,255,0.04)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                    color: "rgba(255,255,255,0.35)",
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.color = "#C8A96A";
-                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(200,169,106,0.3)";
-                    (e.currentTarget as HTMLElement).style.background = "rgba(200,169,106,0.06)";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.35)";
-                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)";
-                    (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)";
-                  }}
+                  className="text-[10px] font-bold uppercase tracking-widest px-5 py-2.5 rounded-xl bg-white/[0.03] border border-white/5 text-white/50 hover:text-white hover:border-accent/40 hover:bg-white/[0.08] transition-all duration-300 cursor-default"
                 >
                   {tag}
                 </span>
               ))}
             </motion.div>
 
-            {/* Divider */}
-            <div className="h-px mb-12" style={{ background: "rgba(255,255,255,0.06)" }} />
-
-            {/* CTA row */}
+            {/* CTA */}
             <motion.div
-              className="flex items-center gap-6"
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.45 }}
+              className="pt-8 border-t border-white/10"
             >
               <a
                 href="#services"
-                className="inline-flex items-center gap-3 px-7 py-3.5 rounded-xl font-bold uppercase tracking-widest text-xs transition-all duration-300 group"
-                style={{
-                  background: "#C8A96A",
-                  color: "#050510",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)";
-                  (e.currentTarget as HTMLElement).style.boxShadow = "0 20px 40px rgba(200,169,106,0.25)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                  (e.currentTarget as HTMLElement).style.boxShadow = "none";
-                }}
+                className="inline-flex items-center gap-3 text-accent font-bold uppercase tracking-[0.2em] text-xs group hover:text-white transition-colors duration-300"
               >
-                Explore Our Services
-                <svg className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
-              </a>
-
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 font-bold uppercase tracking-widest text-xs transition-all duration-300"
-                style={{ color: "rgba(255,255,255,0.35)" }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#C8A96A"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.35)"; }}
-              >
-                Contact Us
-                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
+                Explore Our Services 
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
               </a>
             </motion.div>
           </div>
+
+          {/* ── RIGHT: Image composition ── */}
+          <div className="relative order-1 lg:order-2 lg:sticky lg:top-32">
+            {/* Primary image */}
+            <div className="relative">
+              <ImageFrame
+                src="/Images/ezgif-frame-12.jpg"
+                alt="Seed UAE 2021 - Modern Innovation"
+                delay={0.1}
+                yRange={["-6%", "6%"]}
+                className="relative h-[450px] lg:h-[600px] w-full shadow-2xl"
+              />
+
+              {/* Floating tag — top left */}
+              <motion.div
+                className="absolute -top-6 -left-6 p-6 rounded-[2rem] backdrop-blur-md z-10 border border-white/10 shadow-2xl"
+                style={{ background: "rgba(10,10,26,0.85)" }}
+                initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: 0.4 }}
+              >
+                <div className="absolute inset-0 bg-accent/10 rounded-[2rem] blur-md" />
+                <div className="relative">
+                  <p className="text-3xl font-black font-syne leading-none mb-1 text-accent">
+                    15+
+                  </p>
+                  <p className="text-[10px] font-bold tracking-widest uppercase text-white/50">
+                    Institutions
+                  </p>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Secondary image — offset bottom right */}
+            <div className="absolute -bottom-16 -right-8 w-[55%] hidden md:block z-10">
+              <div className="relative overflow-hidden rounded-[2.5rem] shadow-2xl bg-[#0a0a1a] p-2 border border-white/5">
+                <ImageFrame
+                  src="/Images/ezgif-frame-2.jpg"
+                  alt="NIMS Dubai 1980 - Heritage Roots"
+                  delay={0.25}
+                  yRange={["8%", "-8%"]}
+                  className="h-[220px] w-full rounded-[2rem]"
+                />
+              </div>
+            </div>
+          </div>
+
         </div>
 
         {/* ══ STATS BAND ══ */}
-        <div
-          className="mt-28 lg:mt-36 grid grid-cols-2 lg:grid-cols-4 gap-4"
-        >
+        {/* <div className="mt-32 lg:mt-40 grid grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map((s, i) => (
             <StatCard key={i} value={s.value} label={s.label} delay={i * 0.08} />
           ))}
-        </div>
+        </div> */}
 
       </div>
-
-      {/* ── Bottom separator ── */}
-      <div
-        className="absolute bottom-0 left-0 right-0 h-px"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(200,169,106,0.2), transparent)" }}
-      />
     </section>
   );
 }
