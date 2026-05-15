@@ -36,6 +36,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={cn("antialiased", syne.variable, playfair.variable, inter.variable, "font-sans", geist.variable)}
     >
       <body className="flex flex-col font-inter bg-[#050510] text-white">

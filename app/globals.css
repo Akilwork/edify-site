@@ -6,7 +6,9 @@
 
 @theme {
   --color-primary: #0F3D2E;
+  /* Gold accent — overrides the shadcn oklch grey mapped in @theme inline below */
   --color-accent: #C8A96A;
+  --color-accent-foreground: #0a0a0a;
 }
 
 body {
@@ -179,14 +181,12 @@ html.lenis {
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
+  /* --color-primary remapped in @theme block above to #0F3D2E */
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);

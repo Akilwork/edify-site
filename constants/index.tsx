@@ -163,3 +163,44 @@ export const aboutTags: string[] = [
   "Recruitment",
   "Financial Services",
 ];
+
+// ── Why People Visit EDIFY ───────────────────────────────────────────────────
+
+export interface VisitReason {
+  title: string;
+  description: string;
+  image: string;
+}
+
+export const visitReasons: VisitReason[] = [
+  {
+    title: "Explore Educational Institutions",
+    description: "Learn about schools, innovation programs, and educational ecosystems.",
+    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2000&auto=format&fit=crop",
+  },
+  {
+    title: "Discover Integrated Services",
+    description: "Access consultancy, HR, transport, software, branding, and safety solutions.",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000&auto=format&fit=crop",
+  },
+  {
+    title: "Build Strategic Partnerships",
+    description: "Connect with a growing UAE-based institutional network.",
+    image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=2000&auto=format&fit=crop",
+  },
+  {
+    title: "Understand the UAE–NIMS Story",
+    description: "Experience the parallel journey of UAE growth and educational transformation.",
+    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=2000&auto=format&fit=crop",
+  },
+  {
+    title: "Access Innovation & Technology",
+    description: "Explore robotics, digital transformation, and future-ready systems.",
+    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2000&auto=format&fit=crop",
+  },
+  {
+    title: "Connect with Group Brands",
+    description: "Navigate directly to associated companies and services.",
+    image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=2000&auto=format&fit=crop",
+  },
+];

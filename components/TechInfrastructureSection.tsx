@@ -4,7 +4,7 @@ import { techInfraSteps } from "@/constants/storytelling";
 const TechInfrastructureSection = () => {
   return (
     <section id="technology-infrastructure" className="w-full">
-      <ScrollAdventure steps={techInfraSteps} id="tech-infra" />
+      <ScrollAdventure steps={techInfraSteps} id="tech-infra" disableAnimation />
     </section>
   );
 };

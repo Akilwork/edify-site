@@ -66,34 +66,72 @@ export const EcosystemCards = ({ scrollProgress }: { scrollProgress: number }) =
       {cardData.map((card, i) => (
         <group key={card.name} position={cardPositions[i].initialPos}>
           <Html transform occlude distanceFactor={1.5}>
-            <motion.div 
-              whileHover={{ scale: 1.1, y: -10 }}
-              className="w-48 p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-xl shadow-2xl group cursor-pointer"
+            <motion.div
+              whileHover={{
+                scale: 1.12,
+                y: -12,
+                transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] },
+              }}
+              className="relative w-48 p-4 rounded-2xl backdrop-blur-xl shadow-2xl group cursor-pointer overflow-hidden"
               style={{
-                boxShadow: "0 0 30px rgba(200, 169, 106, 0.1)",
+                background: "rgba(255,255,255,0.03)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                boxShadow: "0 0 30px rgba(200, 169, 106, 0.08)",
+              }}
+              onHoverStart={(e) => {
+                (e.target as HTMLElement).style.boxShadow =
+                  "0 0 40px rgba(200,169,106,0.35), 0 0 80px rgba(200,169,106,0.12)";
+                (e.target as HTMLElement).style.border =
+                  "1px solid rgba(200,169,106,0.5)";
+                (e.target as HTMLElement).style.background =
+                  "rgba(200,169,106,0.06)";
+              }}
+              onHoverEnd={(e) => {
+                (e.target as HTMLElement).style.boxShadow =
+                  "0 0 30px rgba(200, 169, 106, 0.08)";
+                (e.target as HTMLElement).style.border =
+                  "1px solid rgba(255,255,255,0.08)";
+                (e.target as HTMLElement).style.background =
+                  "rgba(255,255,255,0.03)";
               }}
             >
               <div className="flex flex-col gap-3">
                 <div className="flex items-center justify-between">
-                  <div className="w-8 h-8 rounded-lg bg-accent/20 flex items-center justify-center font-bold text-accent text-xs">
+                  <motion.div
+                    whileHover={{ rotate: 10 }}
+                    className="w-8 h-8 rounded-lg bg-accent/20 flex items-center justify-center font-bold text-accent text-xs group-hover:bg-accent/30 transition-colors"
+                  >
                     {card.name[0]}
-                  </div>
-                  <span className="text-[8px] font-black tracking-[0.2em] uppercase text-white/20 group-hover:text-accent transition-colors">
+                  </motion.div>
+                  <span className="text-[8px] font-black tracking-[0.2em] uppercase text-white/20 group-hover:text-accent transition-colors duration-200">
                     {card.category}
                   </span>
                 </div>
-                <div className="h-[1px] w-full bg-white/5 group-hover:bg-accent/20 transition-colors" />
+                <div className="h-[1px] w-full bg-white/5 group-hover:bg-accent/30 transition-colors duration-300" />
                 <div>
-                  <h4 className="text-sm font-bold text-white/80 group-hover:text-white transition-colors tracking-tight">
+                  <h4 className="text-sm font-bold text-white/80 group-hover:text-white transition-colors duration-200 tracking-tight">
                     {card.name}
                   </h4>
-                  <p className="text-[9px] text-white/30 mt-1">Ecosystem Partner</p>
+                  <p className="text-[9px] text-white/30 group-hover:text-white/50 transition-colors duration-200 mt-1">
+                    Ecosystem Partner
+                  </p>
                 </div>
               </div>
-              
-              {/* Reflection lighting effect */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-              <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-accent/0 via-accent/30 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity blur-[1px] pointer-events-none" />
+
+              {/* Shimmer sweep on hover */}
+              <motion.div
+                className="absolute inset-0 rounded-2xl pointer-events-none"
+                initial={{ x: "-100%", opacity: 0 }}
+                whileHover={{ x: "100%", opacity: 1 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                style={{
+                  background:
+                    "linear-gradient(90deg, transparent, rgba(200,169,106,0.15), transparent)",
+                }}
+              />
+
+              {/* Top-edge accent line */}
+              <div className="absolute top-0 left-4 right-4 h-[1px] bg-gradient-to-r from-transparent via-accent/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
             </motion.div>
           </Html>
         </group>
