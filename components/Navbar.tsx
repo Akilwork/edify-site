@@ -1,42 +1,101 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Menu } from "lucide-react";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import { useState, useRef } from "react";
 
 export const Navbar = () => {
+  const { scrollY } = useScroll();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+  const lastYRef = useRef(0);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setIsScrolled(latest > 100);
+
+    if (latest > lastYRef.current && latest > 150) {
+      // scrolling down
+      setIsHidden(true);
+    } else if (latest < lastYRef.current) {
+      // scrolling up
+      setIsHidden(false);
+    }
+
+    lastYRef.current = latest;
+  });
+
   return (
     <motion.header 
       initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className="fixed top-0 left-0 right-0 z-[100] px-6 py-4 md:px-12 md:py-6 pointer-events-none"
+      animate={{ y: isHidden ? -100 : 0, opacity: isHidden ? 0 : 1 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      className="fixed top-4 left-4 right-4 z-[100] pointer-events-none"
     >
-      <nav className="max-w-7xl mx-auto flex items-center justify-between">
-        {/* LEFT: Minimal animated hamburger icon */}
-        <div className="flex-1 pointer-events-auto">
-          <motion.button 
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="group p-3 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl hover:bg-white/10 transition-all shadow-lg shadow-black/20"
+      <nav 
+        className={`max-w-7xl mx-auto flex items-center justify-between p-4 rounded-[2rem] backdrop-blur-xl shadow-lg shadow-black/10 relative overflow-hidden transition-colors duration-500 ${
+          isScrolled 
+            ? "bg-white/95 border border-gray-200" 
+            : "bg-white/[0.02] border border-white/5"
+        }`}
+      >
+        {/* Subtle background glow */}
+        <div className={`absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/5 pointer-events-none transition-opacity duration-500 ${isScrolled ? 'opacity-50' : 'opacity-100'}`} />
+        
+        {/* LEFT: Navigation Links - Desktop only */}
+        <div className="hidden md:flex items-center gap-8 pointer-events-auto relative z-10">
+          {[
+            { label: "Overview", href: "#overview" },
+            { label: "Our Services", href: "#services" },
+            { label: "Team", href: "#team" },
+            { label: "Our Group Companies", href: "#group" }
+          ].map((item, i) => (
+            <motion.a
+              key={item.label}
+              href={item.href}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 + i * 0.1 }}
+              className={`text-sm font-medium transition-colors duration-300 cursor-pointer relative group hover:text-accent ${isScrolled ? "text-gray-900 font-semibold" : "text-white/60"}`}
+            >
+              {item.label}
+              <div className="absolute -bottom-1 left-0 w-0 h-[1px] bg-accent group-hover:w-full transition-all duration-300" />
+            </motion.a>
+          ))}
+        </div>
+
+        {/* CENTER: EDIFY Logo */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-auto">
+          <motion.div 
+            className="flex items-center cursor-pointer group"
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.2 }}
           >
-            <Menu className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
+            <div className="relative">
+              <img 
+                src="/Edify Logo/Edify logo.png" 
+                alt="Edify Logo" 
+                className="h-10 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 rounded-xl bg-accent/10 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </div>
+          </motion.div>
+        </div>
+
+        {/* RIGHT: CTA Button */}
+        <div className="flex items-center gap-4 pointer-events-auto relative z-10">
+          <motion.button 
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="group px-6 py-3 rounded-2xl bg-gradient-to-r from-primary to-primary/80 border border-primary/20 hover:border-accent/30 hover:from-accent/20 hover:to-accent/10 transition-all duration-300 cursor-pointer relative overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/5 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="relative flex items-center gap-2">
+              <span className="font-bold text-sm text-white group-hover:text-accent transition-colors duration-300">
+                Contact
+              </span>
+              <ArrowUpRight className="w-4 h-4 text-white/70 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
+            </div>
           </motion.button>
-        </div>
-
-
-        {/* CENTER: EDIFY logo */}
-        <div className="flex-1 flex justify-center pointer-events-auto">
-          <div className="flex items-center gap-2 cursor-pointer group">
-            <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center font-bold text-gray-900 group-hover:scale-110 transition-transform">E</div>
-            <span className="font-syne font-bold text-white text-xl tracking-tighter uppercase">Edify</span>
-          </div>
-        </div>
-
-        {/* RIGHT: Rounded glassmorphism Login button */}
-        <div className="flex-1 flex justify-end pointer-events-auto">
-          <button className="px-6 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl hover:bg-accent hover:text-gray-900 hover:border-accent transition-all font-bold text-xs uppercase tracking-widest text-white active:scale-95 shadow-lg shadow-black/20">
-            Login
-          </button>
         </div>
       </nav>
     </motion.header>

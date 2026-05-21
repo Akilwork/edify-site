@@ -4,31 +4,29 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { PerspectiveCamera, Stars, Float, Environment } from "@react-three/drei";
 import { Globe } from "./Globe";
 import { EcosystemCards } from "./EcosystemCards";
-import { Suspense, useRef, useEffect } from "react";
+import { Suspense, useRef } from "react";
 import * as THREE from "three";
-import gsap from "gsap";
+import { MotionValue } from "framer-motion";
 
-const SceneManager = ({ scrollProgress }: { scrollProgress: number }) => {
+const SceneManager = ({ scrollProgress }: { scrollProgress: MotionValue<number> }) => {
   const { camera } = useThree();
   const lightRef = useRef<THREE.PointLight>(null);
 
-  useEffect(() => {
-    // Scroll-linked camera movement
-    // 0 -> 1: move camera from z=8 to z=2
-    gsap.to(camera.position, {
-      z: 8 - scrollProgress * 6,
-      y: scrollProgress * 1,
-      duration: 0.5,
-      ease: "power2.out",
-    });
-  }, [scrollProgress, camera]);
-
   useFrame((state) => {
-    // Parallax mouse movement
+    // Base camera position from scroll
+    const progress = scrollProgress.get();
+    const baseZ = 8 - progress * 6;
+    const baseY = progress * 1;
+
+    // Parallax mouse movement combined with scroll Y
     const targetX = state.mouse.x * 2;
-    const targetY = state.mouse.y * 2;
+    const targetY = baseY + (state.mouse.y * 2);
+
+    // Smoothly interpolate towards the target positions
     state.camera.position.x += (targetX - state.camera.position.x) * 0.05;
     state.camera.position.y += (targetY - state.camera.position.y) * 0.05;
+    state.camera.position.z += (baseZ - state.camera.position.z) * 0.1;
+
     state.camera.lookAt(0, -0.5, 0);
 
     if (lightRef.current) {
@@ -67,7 +65,7 @@ const SceneManager = ({ scrollProgress }: { scrollProgress: number }) => {
   );
 };
 
-export const Scene = ({ scrollProgress }: { scrollProgress: number }) => {
+export const Scene = ({ scrollProgress }: { scrollProgress: MotionValue<number> }) => {
   return (
     <div className="absolute inset-0 z-0 bg-[#050510]">
       <Canvas shadows dpr={[1, 2]}>

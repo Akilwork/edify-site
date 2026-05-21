@@ -1,64 +1,54 @@
-import { FeatureSections } from "@/components/ui/feature-sections";
+import { Gallery6 } from "@/components/ui/gallery6";
 
-export default function DemoOne() {
-  return (
-    <>
-      {/* Grid variant */}
-      <FeatureSections
-        title="Powerful Features"
-        subtitle="Everything you need to manage, track, and grow your business, securely and efficiently."
-        variant="grid"
-        features={[
-          {
-            title: "Feedback Analyzer",
-            description: "Get instant insights into your finances with live dashboards.",
-            image:
-              "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
-            alt: "Analytics dashboard",
-          },
-          {
-            title: "User Management",
-            description: "Get instant insights into your finances with live dashboards.",
-            image:
-              "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop",
-            alt: "Team collaboration",
-          },
-          {
-            title: "Better Invoicing",
-            description: "Get instant insights into your finances with live dashboards.",
-            image:
-              "https://images.unsplash.com/photo-1554224311-beee415c15c7?q=80&w=800&auto=format&fit=crop",
-            alt: "Invoice management",
-          },
-        ]}
-      />
+const demoData = {
+  heading: "Featured Projects",
+  demoUrl: "https://www.shadcnblocks.com",
+  items: [
+    {
+      id: "item-1",
+      title: "Build Modern UIs",
+      summary:
+        "Create stunning user interfaces with our comprehensive design system.",
+      url: "#",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+    },
+    {
+      id: "item-2",
+      title: "Design System Components",
+      summary:
+        "Explore our library of customizable components built with shadcn/ui and Tailwind CSS.",
+      url: "#",
+      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&q=80",
+    },
+    {
+      id: "item-3",
+      title: "Responsive Layouts",
+      summary:
+        "Build websites that look great on any device with our responsive design patterns.",
+      url: "#",
+      image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&q=80",
+    },
+    {
+      id: "item-4",
+      title: "Developer Experience",
+      summary:
+        "Streamline your workflow with our developer-friendly tools and documentation.",
+      url: "#",
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+    },
+    {
+      id: "item-5",
+      title: "Performance First",
+      summary:
+        "Create fast, optimized websites using our performance-focused components.",
+      url: "#",
+      image: "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=800&q=80",
+    },
+  ],
+};
 
-      {/* Showcase variant */}
-      <FeatureSections
-        title="Better Design with Highest Revenue"
-        subtitle="PrebuiltUI empowers you to build beautifully and scale effortlessly."
-        variant="showcase"
-        showCTA={true}
-        ctaText="Learn more about the product"
-        ctaUrl="https://prebuiltui.com"
-        features={[
-          {
-            title: "Better design with highest revenue and profits",
-            description:
-              "PrebuiltUI empowers you to build beautifully and scale effortlessly.",
-            image:
-              "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop",
-            alt: "Features showcase",
-          },
-          {
-            title: "Better invoicing",
-            description: "Get instant insights into your finances with live dashboards.",
-            image:
-              "https://images.unsplash.com/photo-1554224311-beee415c15c7?q=80&w=800&auto=format&fit=crop",
-            alt: "Features showcase",
-          },
-        ]}
-      />
-    </>
-  );
+function Gallery6Demo() {
+  return <Gallery6 {...demoData} />;
 }
+
+export { Gallery6Demo };

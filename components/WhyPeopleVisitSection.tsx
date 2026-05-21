@@ -37,7 +37,7 @@ export function WhyPeopleVisitSection() {
   const displayIndex = hoveredIndex !== null ? hoveredIndex : activeIndex;
 
   return (
-    <section className="py-32 px-6 text-gray-900 relative overflow-hidden" style={{ backgroundColor: "#F6F6F6" }}>
+    <section className="py-32 px-6 text-gray-900 relative overflow-hidden bg-white">
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
         <div className="mb-16">

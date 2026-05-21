@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import * as THREE from "three";
-import { motion } from "framer-motion";
+import { motion, MotionValue } from "framer-motion";
 
 const cardData = [
   { name: "Loyaltri", category: "HR Tech" },
@@ -33,7 +33,7 @@ const cardPositions = cardData.map((_, i) => {
   };
 });
 
-export const EcosystemCards = ({ scrollProgress }: { scrollProgress: number }) => {
+export const EcosystemCards = ({ scrollProgress }: { scrollProgress: MotionValue<number> }) => {
   const groupRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
@@ -53,7 +53,8 @@ export const EcosystemCards = ({ scrollProgress }: { scrollProgress: number }) =
         // Zoom-on-scroll logic
         // As scrollProgress goes 0 -> 1, cards move closer to camera
         // Camera is at z=8 (default). We want cards to zoom past camera or towards it.
-        const zoomFactor = scrollProgress * 15;
+        const progress = scrollProgress.get();
+        const zoomFactor = progress * 15;
         child.position.z -= zoomFactor;
         
         // If card is active (zoomed in), we handle it in the main scene or here

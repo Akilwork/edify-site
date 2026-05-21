@@ -25,10 +25,13 @@ import { WhyPeopleVisitSection } from "@/components/WhyPeopleVisitSection";
 
 
 
+import { Navbar } from "@/components/Navbar";
+
 export default function Home() {
   return (
     <main className="bg-[#050510] text-white selection:bg-accent/30 selection:text-accent">
-      {/* ── HERO (Includes Cinematic Experience & Navbar) ── */}
+      <Navbar />
+      {/* ── HERO (Includes Cinematic Experience) ── */}
       <HeroSection />
 
       {/* ── LIVE IMPACT COUNTERS ── */}
@@ -165,57 +168,68 @@ export default function Home() {
 
 
       {/* ── CONTACT ── */}
-      <section id="contact" className="py-32 px-6 bg-white text-gray-900">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-20">
-          <div>
-            <span className="font-bold tracking-widest uppercase text-xs mb-4 block opacity-60">Get in Touch</span>
-            <h2 className="text-4xl md:text-5xl font-bold mb-8">Let’s Build What’s Next—Together</h2>
-            <p className="text-lg font-medium opacity-80 mb-12 leading-relaxed">
-              Partner with Edify to scale your institution or business with confidence. We’re here to help you move forward—whether you’re building, scaling, or optimizing your organization.
-            </p>
+      <section id="contact" className="pt-32 pb-16 px-6 bg-[#0A0A0A] text-white relative">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 lg:gap-32">
+          {/* Left Column */}
+          <div className="flex flex-col justify-between">
+            <div>
+              <span className="font-bold tracking-widest uppercase text-xs mb-6 block text-white/50">Get in Touch</span>
+              <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight tracking-tight">Let’s Build <br/> What’s Next.</h2>
+              <p className="text-xl font-medium text-white/60 mb-16 leading-relaxed max-w-md">
+                Partner with Edify to scale your institution or business with confidence. We’re here to help you move forward.
+              </p>
+            </div>
             
-            <div className="space-y-8">
+            <div className="space-y-12">
               {contactItems.map((item, i) => (
-                <div key={i} className="flex items-start gap-6">
-                  <div className="w-12 h-12 rounded-2xl bg-gray-900/10 flex items-center justify-center">
-                    {item.icon}
-                  </div>
-                  <div>
-                    <span className="block text-xs font-bold uppercase tracking-wider opacity-50 mb-1">{item.label}</span>
-                    <span className="text-xl font-bold">{item.value}</span>
-                  </div>
+                <div key={i} className="flex flex-col gap-2">
+                  <span className="text-xs font-bold uppercase tracking-widest text-white/40">{item.label}</span>
+                  <span className="text-2xl font-medium tracking-tight">{item.value}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="bg-white p-10 md:p-12 rounded-[3rem] shadow-2xl">
-            <form className="space-y-6">
-              <div className="grid grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-gray-400">Name</label>
-                  <input type="text" className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-all" placeholder="John Doe" />
+          {/* Right Column (Form) */}
+          <div className="flex flex-col justify-center">
+            <form className="space-y-12">
+              <div className="grid md:grid-cols-2 gap-12">
+                <div className="relative group">
+                  <input type="text" id="name" className="peer w-full bg-transparent border-b border-white/20 pb-4 text-white text-lg focus:outline-none focus:border-white transition-colors placeholder-transparent" placeholder="Name" />
+                  <label htmlFor="name" className="absolute left-0 top-0 text-white/40 text-sm uppercase tracking-widest font-bold transition-all peer-placeholder-shown:text-lg peer-placeholder-shown:top-0 peer-placeholder-shown:normal-case peer-placeholder-shown:font-normal peer-focus:-top-6 peer-focus:text-xs peer-focus:uppercase peer-focus:font-bold peer-focus:text-white/60 -top-6 text-xs cursor-text">Name</label>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-widest text-gray-400">Organization</label>
-                  <input type="text" className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-all" placeholder="Company Name" />
+                <div className="relative group">
+                  <input type="text" id="organization" className="peer w-full bg-transparent border-b border-white/20 pb-4 text-white text-lg focus:outline-none focus:border-white transition-colors placeholder-transparent" placeholder="Organization" />
+                  <label htmlFor="organization" className="absolute left-0 top-0 text-white/40 text-sm uppercase tracking-widest font-bold transition-all peer-placeholder-shown:text-lg peer-placeholder-shown:top-0 peer-placeholder-shown:normal-case peer-placeholder-shown:font-normal peer-focus:-top-6 peer-focus:text-xs peer-focus:uppercase peer-focus:font-bold peer-focus:text-white/60 -top-6 text-xs cursor-text">Organization</label>
                 </div>
               </div>
-              <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-gray-400">Service Interest</label>
-                <select className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-all">
-                  <option>Education Ecosystem</option>
-                  <option>Business & Operations</option>
-                  <option>Technology & Infrastructure</option>
-                  <option>Other</option>
+              
+              <div className="relative group pt-4">
+                <select id="service" className="w-full bg-transparent border-b border-white/20 pb-4 text-white text-lg focus:outline-none focus:border-white transition-colors appearance-none cursor-pointer">
+                  <option value="" className="bg-[#0A0A0A] text-white">Select a Service</option>
+                  <option value="Education Ecosystem" className="bg-[#0A0A0A] text-white">Education Ecosystem</option>
+                  <option value="Business & Operations" className="bg-[#0A0A0A] text-white">Business & Operations</option>
+                  <option value="Technology & Infrastructure" className="bg-[#0A0A0A] text-white">Technology & Infrastructure</option>
+                  <option value="Other" className="bg-[#0A0A0A] text-white">Other</option>
                 </select>
+                <label htmlFor="service" className="absolute left-0 -top-2 text-white/60 text-xs uppercase tracking-widest font-bold transition-all pointer-events-none">Service Interest</label>
+                <div className="absolute right-0 top-2 pointer-events-none text-white/50">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
               </div>
-              <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-widest text-gray-400">Message</label>
-                <textarea className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-all min-h-[120px]" placeholder="How can we help?"></textarea>
+
+              <div className="relative group pt-4">
+                <textarea id="message" className="peer w-full bg-transparent border-b border-white/20 pb-4 text-white text-lg focus:outline-none focus:border-white transition-colors placeholder-transparent min-h-[120px] resize-none" placeholder="Message"></textarea>
+                <label htmlFor="message" className="absolute left-0 -top-2 text-white/40 text-sm uppercase tracking-widest font-bold transition-all peer-placeholder-shown:text-lg peer-placeholder-shown:top-4 peer-placeholder-shown:normal-case peer-placeholder-shown:font-normal peer-focus:-top-2 peer-focus:text-xs peer-focus:uppercase peer-focus:font-bold peer-focus:text-white/60 text-xs cursor-text">How can we help?</label>
               </div>
-              <button className="w-full py-4 rounded-2xl bg-gray-900 text-white font-bold uppercase tracking-widest text-sm hover:scale-[1.02] transition-all duration-300">
-                Start the Conversation
+
+              <button type="button" className="group flex items-center justify-between w-full md:w-auto bg-white text-black px-10 py-5 hover:bg-gray-200 transition-colors">
+                <span className="font-bold uppercase tracking-widest text-sm mr-8">Send Message</span>
+                <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
               </button>
             </form>
           </div>

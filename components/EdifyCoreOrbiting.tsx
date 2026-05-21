@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   GraduationCap,
@@ -18,6 +18,7 @@ import {
   Printer,
   Brain,
   ArrowRight,
+  ArrowUpRight,
   type LucideIcon,
 } from "lucide-react";
 import {
@@ -27,6 +28,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
 // ── Service Data ──────────────────────────────────────────────────────────────
 
@@ -37,6 +39,7 @@ interface ServiceItem {
   icon: LucideIcon;
   category: "education" | "business" | "technology";
   image: string;
+  url?: string;
 }
 
 const services: ServiceItem[] = [
@@ -48,6 +51,7 @@ const services: ServiceItem[] = [
     icon: BookOpen,
     category: "education",
     image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80",
+    url: "#academic-services",
   },
   {
     id: "edu-consultancy",
@@ -57,6 +61,7 @@ const services: ServiceItem[] = [
     icon: GraduationCap,
     category: "education",
     image: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&q=80",
+    url: "#educational-consultancy",
   },
   {
     id: "school-mgmt",
@@ -66,6 +71,7 @@ const services: ServiceItem[] = [
     icon: School,
     category: "education",
     image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&q=80",
+    url: "#school-management",
   },
   {
     id: "hr",
@@ -75,6 +81,7 @@ const services: ServiceItem[] = [
     icon: Users,
     category: "business",
     image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=800&q=80",
+    url: "#hr-services",
   },
   {
     id: "recruitment",
@@ -84,6 +91,7 @@ const services: ServiceItem[] = [
     icon: UserSearch,
     category: "business",
     image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
+    url: "#recruitment-services",
   },
   {
     id: "sports",
@@ -93,6 +101,7 @@ const services: ServiceItem[] = [
     icon: Trophy,
     category: "education",
     image: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&q=80",
+    url: "#sports-management",
   },
   {
     id: "transport",
@@ -102,6 +111,7 @@ const services: ServiceItem[] = [
     icon: Bus,
     category: "business",
     image: "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=800&q=80",
+    url: "#transport-services",
   },
   {
     id: "financial",
@@ -111,6 +121,7 @@ const services: ServiceItem[] = [
     icon: Banknote,
     category: "business",
     image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+    url: "#financial-services",
   },
   {
     id: "software-consultancy",
@@ -120,6 +131,7 @@ const services: ServiceItem[] = [
     icon: Code2,
     category: "technology",
     image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80",
+    url: "#software-consultancy",
   },
   {
     id: "software-dev",
@@ -129,6 +141,7 @@ const services: ServiceItem[] = [
     icon: Cpu,
     category: "technology",
     image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&q=80",
+    url: "#software-development",
   },
   {
     id: "robotics",
@@ -138,6 +151,7 @@ const services: ServiceItem[] = [
     icon: Bot,
     category: "technology",
     image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&q=80",
+    url: "#robotics-innovation",
   },
   {
     id: "special-ed",
@@ -147,6 +161,7 @@ const services: ServiceItem[] = [
     icon: HeartHandshake,
     category: "education",
     image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80",
+    url: "#special-education",
   },
   {
     id: "printing",
@@ -156,6 +171,7 @@ const services: ServiceItem[] = [
     icon: Printer,
     category: "technology",
     image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    url: "#printing-solutions",
   },
   {
     id: "counselling",
@@ -165,6 +181,7 @@ const services: ServiceItem[] = [
     icon: Brain,
     category: "education",
     image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&q=80",
+    url: "#psychological-counselling",
   },
 ];
 
@@ -255,12 +272,23 @@ export default function EdifyCoreOrbiting() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-gray-500 text-lg leading-relaxed font-light"
+              className="text-gray-500 text-lg leading-relaxed font-light mb-6"
             >
               A constellation of specialized services orbiting around your
               institution — each one precision-built to support, scale, and
               sustain your growth across education, business, and technology.
             </motion.p>
+            <motion.a
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              href="#contact"
+              className="group inline-flex items-center gap-2 text-accent font-medium hover:text-accent/80 transition-colors cursor-pointer"
+            >
+              Book a consultation
+              <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </motion.a>
           </div>
 
           {/* Carousel Nav */}
@@ -304,13 +332,14 @@ export default function EdifyCoreOrbiting() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.35, ease: "easeOut" }}
-            className="relative rounded-[2rem] overflow-hidden h-64 md:h-80 shadow-xl"
+            className="relative rounded-[2rem] overflow-hidden h-64 md:h-80 shadow-xl group cursor-pointer"
+            onClick={() => activeService.url && window.open(activeService.url, '_self')}
           >
             {/* Background image */}
             <img
               src={activeService.image}
               alt={activeService.title}
-              className="absolute inset-0 w-full h-full object-cover object-center"
+              className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-gray-900/60 to-transparent" />
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-transparent to-transparent" />
@@ -325,12 +354,16 @@ export default function EdifyCoreOrbiting() {
                   {categoryLabels[activeService.category]}
                 </span>
               </div>
-              <h3 className="text-3xl md:text-4xl font-bold text-white mb-2">
+              <h3 className="text-3xl md:text-4xl font-bold text-white mb-2 group-hover:text-accent/90 transition-colors">
                 {activeService.title}
               </h3>
-              <p className="text-white/70 text-base max-w-xl leading-relaxed">
+              <p className="text-white/70 text-base max-w-xl leading-relaxed mb-4">
                 {activeService.description}
               </p>
+              <div className="flex items-center text-white/80 text-sm group-hover:text-accent/90 transition-colors">
+                Learn more
+                <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </div>
             </div>
           </motion.div>
         </AnimatePresence>
@@ -354,83 +387,99 @@ export default function EdifyCoreOrbiting() {
               return (
                 <CarouselItem
                   key={service.id}
-                  className="pl-4 basis-[260px] md:basis-[300px] cursor-pointer"
-                  onClick={() => carouselApi?.scrollTo(i)}
+                  className="pl-4 basis-[260px] md:basis-[300px]"
                 >
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.04 }}
-                    className={`group relative h-full p-7 rounded-[1.75rem] border transition-all duration-500 ${
+                  <Card
+                    className={`group relative h-full p-7 rounded-[1.75rem] border transition-all duration-500 cursor-pointer ${
                       isActive
                         ? "bg-white border-accent/40 shadow-[0_8px_40px_rgba(200,169,106,0.15)]"
                         : "bg-gray-50 border-gray-100 hover:bg-white hover:border-gray-200 hover:shadow-md"
                     }`}
+                    onClick={() => {
+                      carouselApi?.scrollTo(i);
+                      if (service.url) {
+                        setTimeout(() => window.open(service.url, '_self'), 300);
+                      }
+                    }}
                   >
-                    {/* Active indicator */}
-                    {isActive && (
-                      <div className="absolute top-4 right-4 w-2 h-2 rounded-full bg-accent" />
-                    )}
-
-                    {/* Icon */}
-                    <div
-                      className={`w-12 h-12 rounded-xl flex items-center justify-center mb-5 border transition-all duration-300 ${
-                        isActive
-                          ? "bg-accent/10 border-accent/30"
-                          : "bg-gray-100 border-gray-200 group-hover:bg-accent/10 group-hover:border-accent/20"
-                      }`}
-                    >
-                      <Icon
-                        className={`w-6 h-6 transition-colors duration-300 ${
-                          isActive
-                            ? "text-accent"
-                            : "text-gray-400 group-hover:text-accent/70"
-                        }`}
-                        size={24}
-                      />
-                    </div>
-
-                    {/* Category badge */}
-                    <span
-                      className={`text-[9px] font-bold uppercase tracking-[0.3em] px-2 py-0.5 rounded-full border mb-3 inline-block ${
-                        categoryColors[service.category]
-                      }`}
-                    >
-                      {categoryLabels[service.category]}
-                    </span>
-
-                    {/* Title */}
-                    <h3
-                      className={`text-base font-bold leading-snug transition-colors duration-300 ${
-                        isActive
-                          ? "text-gray-900"
-                          : "text-gray-600 group-hover:text-gray-900"
-                      }`}
-                    >
-                      {service.title}
-                    </h3>
-
-                    {/* Bottom arrow */}
-                    <div className="mt-5 flex items-center gap-1.5">
-                      <span
-                        className={`text-[10px] font-bold uppercase tracking-widest transition-colors duration-300 ${
-                          isActive
-                            ? "text-accent"
-                            : "text-gray-300 group-hover:text-accent/60"
-                        }`}
+                    <CardContent className="p-0">
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.04 }}
+                        className="h-full"
                       >
-                        Explore
-                      </span>
-                      <ArrowRight
-                        className={`w-3 h-3 transition-all duration-300 ${
-                          isActive
-                            ? "text-accent translate-x-0.5"
-                            : "text-gray-300 group-hover:text-accent/60 group-hover:translate-x-1"
-                        }`}
-                      />
-                    </div>
-                  </motion.div>
+                        {/* Active indicator */}
+                        {isActive && (
+                          <div className="absolute top-4 right-4 w-2 h-2 rounded-full bg-accent" />
+                        )}
+
+                        {/* Icon */}
+                        <div
+                          className={`w-12 h-12 rounded-xl flex items-center justify-center mb-5 border transition-all duration-300 ${
+                            isActive
+                              ? "bg-accent/10 border-accent/30"
+                              : "bg-gray-100 border-gray-200 group-hover:bg-accent/10 group-hover:border-accent/20"
+                          }`}
+                        >
+                          <Icon
+                            className={`w-6 h-6 transition-colors duration-300 ${
+                              isActive
+                                ? "text-accent"
+                                : "text-gray-400 group-hover:text-accent/70"
+                            }`}
+                            size={24}
+                          />
+                        </div>
+
+                        {/* Category badge */}
+                        <span
+                          className={`text-[9px] font-bold uppercase tracking-[0.3em] px-2 py-0.5 rounded-full border mb-3 inline-block ${
+                            categoryColors[service.category]
+                          }`}
+                        >
+                          {categoryLabels[service.category]}
+                        </span>
+
+                        {/* Title */}
+                        <h3
+                          className={`text-base font-bold leading-snug transition-colors duration-300 mb-3 ${
+                            isActive
+                              ? "text-gray-900"
+                              : "text-gray-600 group-hover:text-gray-900"
+                          }`}
+                        >
+                          {service.title}
+                        </h3>
+
+                        {/* Description preview */}
+                        <p className="text-xs text-gray-500 line-clamp-2 mb-4 leading-relaxed">
+                          {service.description}
+                        </p>
+
+                        {/* Bottom arrow */}
+                        <div className="flex items-center gap-1.5">
+                          <span
+                            className={`text-[10px] font-bold uppercase tracking-widest transition-colors duration-300 ${
+                              isActive
+                                ? "text-accent"
+                                : "text-gray-300 group-hover:text-accent/60"
+                            }`}
+                          >
+                            Explore
+                          </span>
+                          <ArrowRight
+                            className={`w-3 h-3 transition-all duration-300 ${
+                              isActive
+                                ? "text-accent translate-x-0.5"
+                                : "text-gray-300 group-hover:text-accent/60 group-hover:translate-x-1"
+                            }`}
+                          />
+                        </div>
+                      </motion.div>
+                    </CardContent>
+                  </Card>
                 </CarouselItem>
               );
             })}

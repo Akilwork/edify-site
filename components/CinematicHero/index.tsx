@@ -4,8 +4,6 @@ import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from 
 import { useRef, useState } from "react";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Scene } from "./Scene";
-import { Navbar } from "../Navbar";
-
 // ── Scroll-reveal word component ──────────────────────────────────────────────
 const RevealWord = ({ word, delay }: { word: string; delay: number }) => (
   <span className="inline-block overflow-hidden">
@@ -43,24 +41,15 @@ export const CinematicHero = () => {
   const bgTextOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 0]);
   const bgTextScale = useTransform(scrollYProgress, [0, 0.12], [1, 1.06]);
 
-  const [scrollVal, setScrollVal] = useState(0);
-
-  useMotionValueEvent(smoothScrollProgress, "change", (latest) => {
-    setScrollVal(latest);
-  });
-
   // Split heading lines into words for staggered reveal
   const line1Words = ["Building", "Institutions."];
   const line2Words = ["Empowering", "Futures."];
 
   return (
     <div ref={containerRef} className="relative h-[400vh] bg-[#050510]">
-      {/* ── NAVBAR ── */}
-      <Navbar />
-
       {/* ── THREE.JS BACKGROUND ── */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        <Scene scrollProgress={scrollVal} />
+        <Scene scrollProgress={smoothScrollProgress} />
 
         {/* Cinematic Overlays */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#050510] via-transparent to-[#050510] pointer-events-none z-[5]" />
@@ -198,26 +187,25 @@ export const CinematicHero = () => {
             <div className="grid md:grid-cols-2 gap-16 items-center">
               <div>
                 <span className="text-accent font-black tracking-[0.4em] uppercase text-[10px] mb-4 block">
-                  Active Institution
+                  Core Ecosystem
                 </span>
                 <h2 className="text-5xl font-syne font-bold text-white mb-8">
-                  Loyaltri Ecosystem
+                  Edify Management
                 </h2>
                 <p className="text-white/40 text-lg leading-relaxed mb-10">
-                  Driving digital HR transformation across the Middle East with innovative
-                  cloud-based solutions and people-centric technology.
+                  Empowering organizations across the UAE with strategic management, operational excellence, and integrated technology solutions to scale their impact.
                 </p>
                 <div className="flex gap-12">
                   <div>
-                    <span className="block text-3xl font-black text-white mb-1">150+</span>
+                    <span className="block text-3xl font-black text-white mb-1">15+</span>
                     <span className="text-[9px] font-bold uppercase tracking-widest text-white/20">
-                      Enterprises
+                      Institutions
                     </span>
                   </div>
                   <div>
-                    <span className="block text-3xl font-black text-white mb-1">98%</span>
+                    <span className="block text-3xl font-black text-white mb-1">50k+</span>
                     <span className="text-[9px] font-bold uppercase tracking-widest text-white/20">
-                      Retention
+                      People Impacted
                     </span>
                   </div>
                 </div>

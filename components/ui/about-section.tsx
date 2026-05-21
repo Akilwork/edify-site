@@ -41,11 +41,11 @@ function PillarCard({
       <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-accent/10 transition-colors" />
 
       <div>
-        <div className="flex items-center gap-4 mb-6">
+        {/* <div className="flex items-center gap-4 mb-6">
           <span className="text-white/20 font-black text-4xl tracking-tighter group-hover:text-accent/40 transition-colors duration-500">
             0{index}
           </span>
-        </div>
+        </div> */}
 
         <h4 className="text-xl font-bold mb-3 group-hover:text-accent transition-colors duration-500 text-white">
           {title}
@@ -123,7 +123,7 @@ export function AboutSection() {
     <section
       id="about"
       ref={sectionRef}
-      className="py-40 px-6 bg-[#0a0a1a] relative overflow-hidden"
+      className="pt-40 pb-20 lg:pb-24 px-6 bg-[#0a0a1a] relative overflow-hidden"
     >
       {/* ── Decorative background elements ── */}
       <div className="absolute top-1/4 -right-20 w-96 h-96 bg-accent/5 rounded-full blur-[120px]" aria-hidden="true" />
@@ -198,7 +198,7 @@ export function AboutSection() {
 
             {/* Tags */}
             <motion.div
-              className="flex flex-wrap gap-3 mb-14"
+              className="flex flex-wrap gap-3 mb-0"
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -215,7 +215,7 @@ export function AboutSection() {
             </motion.div>
 
             {/* CTA */}
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -229,7 +229,7 @@ export function AboutSection() {
                 Explore Our Services 
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
               </a>
-            </motion.div>
+            </motion.div> */}
           </div>
 
           {/* ── RIGHT: Image composition ── */}
