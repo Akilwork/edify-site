@@ -192,7 +192,6 @@ export function TurnoverGrowthSection() {
   return (
     <section id="growth" className="py-24 md:py-32 px-6 bg-[#F7F8F9] font-inter text-neutral-900">
       <div className="max-w-7xl mx-auto">
-        
         {/* Top Header Row */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mb-16 lg:mb-24 items-start">
           <div className="lg:col-span-7">

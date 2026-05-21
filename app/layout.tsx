@@ -42,6 +42,16 @@ export default function RootLayout({
       <body className="flex flex-col font-inter bg-[#050510] text-white">
         <CustomCursor />
         <SmoothScroll>{children}</SmoothScroll>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (typeof window !== 'undefined') {
+                window.history.scrollRestoration = 'manual';
+                window.scrollTo(0, 0);
+              }
+            `,
+          }}
+        />
       </body>
     </html>
   );

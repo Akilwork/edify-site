@@ -1,6 +1,6 @@
 "use client";
 
-
+import { Suspense } from "react";
 import { motion } from "framer-motion";
 import { 
   contactItems 
